@@ -1,0 +1,54 @@
+body{
+    background-color: #2b4b6b;
+}
+.login{
+    width: 520px;
+    height: 380px;
+    background-color: #fff;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    border-radius: 15px;
+
+}
+
+.login .logo{
+    width: 150px;
+    height: 150px;s
+    overflow: hidden; /*隐藏溢出的图片*/
+    border:2px solid #ccc;
+    border-radius: 50%;
+    padding: 5px;
+    box-shadow: 0 0 10px #ddd;/*发光效果*/
+    position: absolute;
+    left:50%;
+    top:-82px;
+    transform: translateX(-50%);
+    background-color: #fff;
+}
+
+.login .logo img{
+    border:1px solid #ccc;
+    border-radius: 50%;
+    width: 100%;
+}
+
+.login .frms{
+    margin:100px 20px;
+    margin-bottom: 0;
+    
+}
+.mt {
+    margin-top:15px;
+}
+.form-control.vcode {
+    width: 200px;
+}
+
+.vimg{
+    position: absolute;
+    left:340px;
+    top:190px;
+    height: 45px;
+}

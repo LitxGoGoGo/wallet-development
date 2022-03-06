@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>定义助记词</title>
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        ul,li{
+            list-style-type: none;
+            list-style: none;
+            margin:0;
+            padding: 0;
+        }
+        .frms h4{
+            text-align: center;
+        }
+        .frms li{
+            margin:10px;
+            float: left;
+            line-height: 28px;
+            font-size:22px;
+            color:#666;
+            cursor: pointer;
+        }
+        .frms .input-group,.frms .input-group-info{
+            border:1px solid #ccc;
+            height: 28px;
+            margin: 0 auto;
+            border-radius: 10px;
+        }
+
+        .frms .input-group-info{
+            border:0;
+            margin-top:10px;
+            color: red;
+            line-height: 28px;
+            text-align: center;
+            font-size:20px;
+            display: none; 
+        }
+        .red{
+            color: tomato;
+            font-weight: 700;
+        }
+
+    </style>
+
+</head>
+<body>
+    <div class="login">
+
+
+        <div class="frms">
+                <h4 id="notice">请自定义如下助记词顺序</h4>
+                
+                <div class="input-group">
+                    <ul>
+                    {{each helpWords w index}}
+                        <li id="word{{index}}" onclick="diyOrder({{index}})">{{w}}</li>
+                    {{/each}}
+                    </ul>
+                </div>
+
+
+                <div class="input-group-info" id="info">
+                    
+                    <!-- 自定义助记词顺序的区域 -->
+                    
+                </div>
+
+      
+              
+
+
+            
+            <div class="btns mt text-center">
+                    <button class="btn btn-primary btn-lg" id="btnNext" onclick="postedWords()">下一步</button>
+                    
+            </div>
+
+            <div class="mt text-center text-info">
+
+                温馨提示:请牢记您的助记词（建议：记录在一个可保存的存储空间中）
+                
+            </div>
+
+        </div>
+
+
+    </div>
+</body>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/layer/2.3/layer.js"></script>
+
+
+
+<script>
+let count = 0 
+let postWordsData = []
+function diyOrder(index){
+    count++
+    //选中某一个li元素
+    const selectValue = $("#word"+index).html() 
+    //每选择一个助记词就把助记词放入到postWordsData数组中
+    postWordsData.push(selectValue)
+    //把顺序的div进行显示
+    $("#info").show() 
+    //把li的值插入到顺序div区域
+    const value = $("#info").html() + selectValue
+    $("#info").html(value) 
+    $("#word"+index).remove() //自杀选中的li
+    if(count===10){
+        $(".input-group").hide() 
+        $("#notice").html("请牢记助记词（建议：记录在一个可保存的存储空间中）:")
+        $("#notice").addClass("red") 
+    }
+}
+
+function postedWords(){
+    if(count<10) {
+        layer.alert("",{title:"助记词提示",content:"必须选择完成助记词的顺序，且助记词必须是10个"})
+        return false 
+    }else{
+        //alert("ajax提交")
+        //console.log(postWordsData.join("")) 
+        //获取所有的助记词
+        const wordsAll = postWordsData.join("")
+        //获取地址
+        const address = window.localStorage.getItem("account")
+        $.ajax({
+            url:"/wallet/createPrivate",
+            data:{words:wordsAll,address}, 
+            dataType:"json",
+            type:"post",
+            success:(result)=>{
+                if(result.error===0){
+                    //跳转
+                    //layer.alert("",{title:"温馨提示",content:"钱包创建成功"})
+                    window.location = "/account/index" 
+                }else{
+                    layer.alert("",{title:"助记词错误提示",content:"钱包创建失败,原因:私钥无法生成"})
+                }
+            } 
+        })
+
+     }
+}
+
+</script>
+
+</html>

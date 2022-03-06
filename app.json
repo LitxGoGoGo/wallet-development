@@ -1,0 +1,10 @@
+{
+	"apps": {
+		"name": "wallet",
+		"script": "./app.js",
+		"cwd": "D:\\火链学院以太坊工程师\\第40天(钱包项目)\\wallet",
+		"min_uptime": "60s",
+		"max_restarts": 30,
+		"watch": true
+	}
+}

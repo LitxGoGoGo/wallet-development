@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "art-template": "^4.13.2",
+    "bs58": "^4.0.1",
+    "koa": "^2.13.4",
+    "koa-art-template": "^1.1.1",
+    "koa-better-body": "^3.3.9",
+    "koa-convert": "^2.0.0",
+    "koa-router": "^10.1.1",
+    "koa-session": "^6.2.0",
+    "koa-static": "^5.0.0",
+    "mysql": "^2.18.1"
+  }
+}
